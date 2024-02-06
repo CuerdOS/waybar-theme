@@ -1,0 +1,127 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": ["sway/workspaces","pulseaudio","disk"],
+    "modules-center": ["tray"],
+    "modules-right": ["cpu","battery","clock","custom/powermenu"],
+    "sway/mode": {
+        "format": " {}"
+    },
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "disable-markup": false,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "0",
+        }
+    },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 8
+    },
+    "sway/window": {
+        "max-length": 60,
+        "tooltip": false
+        // "format": "( {} )"
+    },
+    "clock": {
+        "format": " <span color='#D1D100'></span> {:%H:%M}",
+        "tooltip": false
+    },
+    "cpu": {
+        "interval": 5,
+        "format": "<span color='#00B2AF'></span>{usage:3}%",
+        "max-length": 10
+    },
+    "disk": {
+        "interval": 30,
+        "format":" <span color='#00B2AF'></span> {free}",
+    },
+    "custom/powermenu": {
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/powermenu.sh",
+        "format": "<span font='feather 5 Free 12' color='#BD0000'>{icon}</span>",
+        "format-icons": [""],
+        "interval": 3600,
+        "escape": true,
+        "on-click": "powermenu"
+    },
+    "custom/recorder": {
+		"format": "!",
+		"return-type": "json",
+		"interval": 3,
+		"exec": "echo '{\"class\": \"recording\"}'",
+		"exec-if": "pgrep wf-recorder",
+        "tooltip": false,
+        "on-click": "killall -s SIGINT wf-recorder"
+	},
+    "battery": {
+        "format":"<span font='feather 5 Free 11' color='#00D100'>{icon}</span> {capacity}%",
+        "format-icons":[""],
+        "format-time": " ({H}h{M}m)",
+        "format-charging":"<span font='feather 5 Free' color='#D16900'></span> {capacity}% ",
+        "format-full":"<span font='feather 5 Free' color='#69D100'></span>  Charged",
+        "interval": 15,
+        "states": {
+            "warning": 30,
+            "critical": 10,
+        },
+        "tooltip": false
+    },
+    "network": {
+        "format": "{icon}",
+        "format-alt": "<span font='feather 5 Free 10'>︁</span> ︁{ipaddr}/{cidr} {icon}",
+        "format-alt-click": "click-left",
+        "format-wifi": "<span font='feather 5 Free 10'></span> {essid} ({signalStrength}%)",
+        "format-ethernet": "<span font='feather 5 Free 10'>︁</span> {ifname}",
+        "format-disconnected": "⚠ Disconnected",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "<span font='feather 5 Free 11' color='#00D100'>{icon:2}</span>{volume}%",
+        "format-alt": "<span font='feather 5 Free 11' color='#00D100'>{icon:2}</span>{volume}%",
+        "format-alt-click": "click-right",
+        "format-muted": "<span font='feather 5 Free 11'></span>",
+        "format-icons": {
+            "phone": [" ", " ", " "],
+            "default": ["", "", "",]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "tooltip": false,
+        "max-volume": 100
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-alt": "{icon}",
+        "format-alt-click": "click-left",
+        "format-icons": ["", ""],
+        "on-scroll-up": "light -A 1",
+        "on-scroll-down": "light -U 1"
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 75,
+        "interval": 5,
+        "format": "{icon} {temperatureC}°",
+        "tooltip": false,
+        "format-icons": [
+            "", // Icon: temperature-empty
+            "", // Icon: temperature-quarter
+            "", // Icon: temperature-half
+            "", // Icon: temperature-three-quarters
+            ""  // Icon: temperature-full
+        ]
+    }
+}
